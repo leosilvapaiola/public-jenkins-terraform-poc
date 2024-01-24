@@ -35,5 +35,4 @@ resource "aws_security_group" "example_security_group" {
   }
 }
 
-# Test #1 for webhook from GitHub
-# Test #2 for webhook from GitHub
+# Test webhook from GitHub:

@@ -14,17 +14,17 @@ pipeline {
         }
         stage('Terraform Format') {
             steps {
-                sh 'sudo terraform fmt -check=true'  // Use -check=true to check for format errors
+                sh 'terraform fmt -check=true'  // Use -check=true to check for format errors
             }
         }
         stage('Terraform Plan') {
             steps {
-                sh 'sudo terraform plan'
+                sh 'terraform plan'
             }
         }
         stage('Terraform Apply') {
             steps {
-                sh 'sudo terraform apply -auto-approve'
+                sh 'terraform apply -auto-approve'
             }
         }
     }

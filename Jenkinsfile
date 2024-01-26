@@ -8,28 +8,28 @@ pipeline {
         }
         stage('Terraform Init') {
             steps {
-                dir('/path/to/terraform/files') {
+                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
                     sh 'terraform init'
                 }
             }
         }
         stage('Terraform Format') {
             steps {
-                dir('/path/to/terraform/files') {
+                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
                     sh 'terraform fmt -check=true'  // Use -check=true to check for format errors
                 }
             }
         }
         stage('Terraform Plan') {
             steps {
-                dir('/path/to/terraform/files') {
+                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
                     sh 'terraform plan'
                 }
             }
         }
         stage('Terraform Apply') {
             steps {
-                dir('/path/to/terraform/files') {
+                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
                     sh 'terraform apply -auto-approve'
                 }
             }

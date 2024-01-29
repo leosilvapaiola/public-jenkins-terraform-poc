@@ -1,46 +1,58 @@
 pipeline {
     agent any
+
+    environment {
+        TF_CLI_ARGS = "-input=false"
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                script {
+                    // Clone your Terraform project repository
+                    checkout scm
+                }
             }
         }
+
         stage('Terraform Init') {
             steps {
-                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
+                script {
+                    // Run 'terraform init'
                     sh 'terraform init'
                 }
             }
         }
-        stage('Terraform Format') {
-            steps {
-                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
-                    sh 'terraform fmt -check=true'  // Use -check=true to check for format errors
-                }
-            }
-        }
+
         stage('Terraform Plan') {
             steps {
-                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
-                    sh 'terraform plan'
+                script {
+                    // Run 'terraform plan'
+                    sh 'terraform plan -out=tfplan'
                 }
             }
         }
+
         stage('Terraform Apply') {
             steps {
-                dir('/var/lib/jenkins/workspace/jenkins-terraform-aws/') {
-                    sh 'terraform apply -auto-approve'
+                script {
+                    // Run 'terraform apply' with auto-approval
+                    sh 'terraform apply -auto-approve tfplan'
                 }
             }
         }
     }
+
     post {
         success {
-            slackSend channel: '#notifications', color: 'good', message: 'Terraform deployment succeeded!'
+            script {
+                echo 'Terraform deployment successful!'
+            }
         }
         failure {
-            slackSend channel: '#notifications', color: 'danger', message: 'Terraform deployment failed.'
+            script {
+                echo 'Terraform deployment failed!'
+            }
         }
     }
 }

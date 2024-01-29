@@ -1,3 +1,21 @@
+terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+  }
+
+  backend "s3" {
+    bucket         = "terraform-state-file-s3-bucket"
+    key            = "terraform.tfstate"
+    region         = "us-east-1"  # Change this to your desired AWS region
+    encrypt        = true
+    # Uncomment the following if you want to use AWS profile or access/secret key
+    # profile        = "your_aws_profile"
+  }
+}
+
 provider "aws" {
   region = "us-east-1"  # Set your desired AWS region
 }

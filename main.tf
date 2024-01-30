@@ -40,6 +40,14 @@ resource "aws_security_group" "example_security_group" {
     description = "Port 80 HTTP access"
   }
 
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["9.10.11.12/32"]
+    description = "Port 443 HTTPS access"
+  }
+
   egress {
     from_port   = 0
     to_port     = 0

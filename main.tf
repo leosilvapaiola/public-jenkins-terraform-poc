@@ -37,7 +37,7 @@ resource "aws_security_group" "example_security_group" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["5.6.7.8/32"]
-    description = "----"
+    description = "Port 80 HTTP access"
   }
 
   egress {

@@ -7,7 +7,7 @@ terraform {
   }
 
   backend "s3" {
-    bucket         = "terraform-state-files-leosilvapaiola-1-1"
+    bucket         = "terraform-state-files-leosilvapaiola-2"
     key            = "sg-project/terraform.tfstate"
     region         = "us-east-1"  # Change this to your desired AWS region
     encrypt        = true
